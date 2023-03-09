@@ -3,14 +3,13 @@
     "name": "Mon extension",
     "version": "1.0",
     "description": "Description de mon extension",
+    "icons": {
+        "128": "img/icons.png"
+    },
     "action": {
-        "default_popup": "popup.html",
-        "default_icon": {
-            "128": "img/icons.png"
-        }
+        "default_popup": "index.html"
     },
     "permissions": [
         "storage"
-    ],
-    "host_permissions": ["<all_urls>"]
+    ]
 }
