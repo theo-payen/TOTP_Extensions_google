@@ -1,12 +1,27 @@
 // Autorisation pour accéder au stockage synchrone
 
-const secret = "NE5S5B5XE5ZEBL5J"; // C'est la clé secrète qui doit être partagée entre le serveur et le client. J'espère que personne ne va la voler ! Ah ah ah.
-const time = Math.floor(Date.now() / 1000 / 30); // Je prends le temps en secondes et je le divise par la durée de validité d'un code, qui est de 30 secondes. Oui, je sais, j'ai toutes les connaissances sur la durée de validité d'un code, comme un expert de la sécurité !
-const totp = new jsOTP.totp.TOTP(secret, 6, 30, "SHA1"); // Maintenant, je crée un objet TOTP avec la clé secrète, une longueur de 6 chiffres, une durée de validité de 30 secondes et un algorithme de hachage SHA-1. Je suis un génie de la cryptographie !
-const code = totp.at(time); // Et maintenant, je génère le code TOTP pour le temps donné. Je suis tellement fort !
-console.log(code); // Et je vais afficher le code dans la console. Tout le monde peut le voir, mais ça ne me dérange pas. Qui a besoin de sécurité de toute façon ?! Haha !
-
-
+function generateTOTPCode(secret) {
+    const currentUnixTime = Math.floor(Date.now() / 1000);
+    const totpValidity = 30;
+    const timeWindowIndex = Math.floor(currentUnixTime / totpValidity);
+    const keyBytes = base32.decode(secret);
+    const timeBuffer = Buffer.alloc(8);
+    timeBuffer.writeBigInt64BE(BigInt(timeWindowIndex), 0);
+    const hmac = crypto.createHmac('sha1', keyBytes);
+    hmac.update(timeBuffer);
+    const hmacResult = hmac.digest();
+    const offset = hmacResult[19] & 0xf;
+    const code = (
+        ((hmacResult[offset] & 0x7f) << 24) |
+        ((hmacResult[offset + 1] & 0xff) << 16) |
+        ((hmacResult[offset + 2] & 0xff) << 8) |
+        (hmacResult[offset + 3] & 0xff)
+    );
+    const normalizedCode = code % 1000000;
+    return normalizedCode.toString().padStart(6, '0');
+}
+code = generateTOTPCode()
+console.log(code)
 const element = document.getElementById('jsresultat');
 
 element.textContent = code;
