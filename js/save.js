@@ -109,3 +109,13 @@ function updateTimer() {
 }
 setInterval(updateTimer, 1000);
 // fin 
+
+
+// thème color 
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.body.style.backgroundColor = "#333";
+    document.body.style.color = "#fff";
+} else {
+    document.body.style.backgroundColor = "#FFF";
+    document.body.style.color = "#333";
+}
