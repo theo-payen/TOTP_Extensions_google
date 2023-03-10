@@ -1,30 +1,30 @@
 // Autorisation pour accéder au stockage synchrone
 
 function generateTOTPCode(secret) {
-    const currentUnixTime = Math.floor(Date.now() / 1000);
-    const totpValidity = 30;
-    const timeWindowIndex = Math.floor(currentUnixTime / totpValidity);
-    const keyBytes = base32.decode(secret);
+    const time = Math.floor((Date.now() + 1000) / 30000);
     const timeBuffer = Buffer.alloc(8);
-    timeBuffer.writeBigInt64BE(BigInt(timeWindowIndex), 0);
-    const hmac = crypto.createHmac('sha1', keyBytes);
+    for (let i = 7; i >= 0; i--) {
+      timeBuffer.writeUInt8(time >> i * 8 & 0xff, i);
+    }
+    const crypto = require('crypto');
+    const hmac = crypto.createHmac('sha1', Buffer.from(secret, 'base32'));
     hmac.update(timeBuffer);
     const hmacResult = hmac.digest();
-    const offset = hmacResult[19] & 0xf;
-    const code = (
-        ((hmacResult[offset] & 0x7f) << 24) |
-        ((hmacResult[offset + 1] & 0xff) << 16) |
-        ((hmacResult[offset + 2] & 0xff) << 8) |
-        (hmacResult[offset + 3] & 0xff)
-    );
-    const normalizedCode = code % 1000000;
-    return normalizedCode.toString().padStart(6, '0');
+    const offset = hmacResult[hmacResult.length - 1] & 0xf;
+    const code = ((hmacResult[offset] & 0x7f) << 24
+        | (hmacResult[offset + 1] & 0xff) << 16
+        | (hmacResult[offset + 2] & 0xff) << 8
+        | (hmacResult[offset + 3] & 0xff)) % 1000000;
+    return code.toString().padStart(6, '0');
+
 }
-code = generateTOTPCode()
-console.log(code)
+const key = 'YDP72P3MMMM74GD527TVZ3WEWLZU37FH';
+totp = generateTOTPCode(key);
+console.log(totp)
+
 const element = document.getElementById('jsresultat');
 
-element.textContent = code;
+element.textContent = totp;
 
 
 document.body.onload = function() {
