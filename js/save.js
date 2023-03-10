@@ -1,4 +1,4 @@
-class TOTP {
+class synctotp {
     constructor(prop1, prop2) {
         this.prop1 = prop1;
         this.prop2 = prop2;
@@ -31,8 +31,10 @@ class TOTP {
     }
 }
 
-let totp = new TOTP('valeur1', 'valeur2');
+let totp = new synctotp('valeur1', 'valeur2');
 
+console.log(totp.getalldata())
+console.log(totp.setdata(1,"toto"))
 console.log(totp.getalldata())
 
 document.body.onload = function() {
