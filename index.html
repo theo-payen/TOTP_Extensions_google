@@ -15,6 +15,34 @@
     <button id="set">Set</button>
     <div id="jsresultat"></div>
 
+    <div class="form">
+        <label class="control-label">Code</label>
+        <input
+            type="text" id="token" placeholder="TOTP Secret"
+            size="30" class="form-control" required />
+    </div>
+    <div class="form">
+        <label class="control-label">Type</label>
+        <select class="form-control" required>
+            <option value="1">(Default) Base32 (a-z, 2-7)</option>
+            <option value="2">Hexadecimal (a-f, 0-9)</option>
+        </select>
+    </div>
+    <div class="form">
+        <label class="control-label">Digits</label>
+        <input type="number" min="6" max="8" value="6" required class="form-control" />
+    </div>
+    <div class="form">
+        <input type="button" class="btn btn-primary" value="Get Token" />
+    </div>
+    
+
+    <code class="totp" id="codetotp"></code>
+
+
+    </div>
+
 </body>
 </html>
-<script src='js/api.js'></script>
+<script src='js/save.js'></script>
+<script src='js/totp.js'></script>
