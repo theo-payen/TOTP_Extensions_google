@@ -5,9 +5,14 @@ class synctotp {
     }
 
     getalldata() {
-        chrome.storage.sync.get(function(items) {
-            console.log(items);
-            return items
+        return new Promise((resolve, reject) => {
+            chrome.storage.sync.get(function(items) {
+                if (chrome.runtime.lastError) {
+                    reject(chrome.runtime.lastError);
+                } else {
+                    resolve(items);
+                }
+            });
         });
     }
 
@@ -33,10 +38,18 @@ class synctotp {
 
 let totp = new synctotp('valeur1', 'valeur2');
 
-console.log(totp.getalldata())
-console.log(totp.setdata(1,"toto"))
-console.log(totp.getalldata())
 
+const list_totp = document.getElementById('list_totp');
+console.log(totp.getalldata());
+console.log("Donnees");
+
+/*
+for(let i = 0; i < Donnees.length; i++) {
+    const p = document.createElement('p');
+    p.textContent = Donnees[i];
+    list_totp.appendChild(p);
+}
+*/
 document.body.onload = function() {
     chrome.storage.sync.get("data", function(items) {
         if (!chrome.runtime.error) {
