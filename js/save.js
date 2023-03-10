@@ -84,3 +84,28 @@ actualiser(); // Appel initial
 setInterval(actualiser, 30000); // Appel toutes les 30 secondes
 // fin
 
+// affiche le timer de 30 à 0 seconde
+// debut
+function updateTimer() {
+    const now = new Date();
+    const seconds = now.getSeconds();
+    let timeset;
+    if (seconds >= 0 && seconds < 30) {
+        timeset = 0;
+    } else {
+        timeset = 30;
+    }
+    const remainingSeconds = timeset - (seconds - 30);
+    const countdown = document.getElementById("countdown");
+    countdown.textContent = remainingSeconds.toString().padStart(2, "0");
+    
+    if (remainingSeconds <= 5) {
+        countdown.style.color = "red";
+    } else if (remainingSeconds <= 10) {
+        countdown.style.color = "orange";
+    } else {
+        countdown.style.color = "green";
+    }
+}
+setInterval(updateTimer, 1000);
+// fin 
