@@ -183,6 +183,7 @@ if (typeof(Convert) !== typeof(TOTP)) {
 
 //<!-- Site specific JavaScript -->
 //"use strict";
+
 window.addEventListener("load", function () {
     //Because typing costs time and time is money (and money is life)
     var q = document.querySelector.bind(document);
@@ -206,6 +207,7 @@ window.addEventListener("load", function () {
     var range = function (min, x, max) {
         return Math.max(Math.min(x | 0, max), min) | 0;
     };
+
 
     //Button to generate code
     var btn = q("[type=button]");
@@ -316,12 +318,6 @@ window.addEventListener("load", function () {
         eleOnline[i].style.display = isOnline ? "block" : "none";
     }
 
-    //Link that opens the help box at the bottom and hides itself
-    q("#openHelp").addEventListener("click", function (e) {
-        e.preventDefault();
-        q("#help").style.display = "block";
-        q("#helpContainer").style.display = "none";
-    });
 
     //Set initial data and pattern
     if (getHash()) {

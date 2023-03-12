@@ -1,24 +1,33 @@
+// thème color 
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.body.style.backgroundColor = "#333";
+    document.body.style.color = "#fff";
+} else {
+    document.body.style.backgroundColor = "#FFF";
+    document.body.style.color = "#333";
+}
+
+
 class synctotp {
-    constructor(prop1, prop2) {
-        this.prop1 = prop1;
-        this.prop2 = prop2;
+    constructor() {
+        //pass
     }
+    // todo : get la clé avant de set pour incrémenter 
+    // todo : get data dans un json
 
     getalldata() {
-        return new Promise((resolve, reject) => {
-            chrome.storage.sync.get(function(items) {
-                if (chrome.runtime.lastError) {
-                    reject(chrome.runtime.lastError);
-                } else {
-                    resolve(items);
-                }
+        return new Promise((resolve) => {
+            chrome.storage.sync.get(function(data) {
+                var dataArray = Object.values(data);
+                var jsonData = JSON.stringify(dataArray);
+                resolve(jsonData);
             });
         });
     }
 
     getdata(key) {
-        chrome.storage.sync.get('maCle', function(result) {
-            console.log('Valeur récupérée pour maCle : ' + result.maCle);
+        chrome.storage.sync.get(key, function(result) {
+            console.log('Valeur récupérée pour ma Cle : ' + result.key);
             return result.key
         });
     }
@@ -36,12 +45,18 @@ class synctotp {
     }
 }
 
-let totp = new synctotp('valeur1', 'valeur2');
+let totp = new synctotp();
+
+totp.setdata(1,54313213)
+totp.setdata(2,9313213)
+totp.setdata(3,459313213)
 
 
 const list_totp = document.getElementById('list_totp');
+list_totp.textContent = totp.getalldata()
 console.log(totp.getalldata());
-console.log("Donnees");
+
+
 
 /*
 for(let i = 0; i < Donnees.length; i++) {
@@ -50,6 +65,8 @@ for(let i = 0; i < Donnees.length; i++) {
     list_totp.appendChild(p);
 }
 */
+
+
 document.body.onload = function() {
     chrome.storage.sync.get("data", function(items) {
         if (!chrome.runtime.error) {
@@ -109,13 +126,3 @@ function updateTimer() {
 }
 setInterval(updateTimer, 1000);
 // fin 
-
-
-// thème color 
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.body.style.backgroundColor = "#333";
-    document.body.style.color = "#fff";
-} else {
-    document.body.style.backgroundColor = "#FFF";
-    document.body.style.color = "#333";
-}
