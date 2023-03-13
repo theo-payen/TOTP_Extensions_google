@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 :root {
-    --main-color: purple;
+    --main-color: #9147ff;
     --black: #333;
     --white: #fff;
   }
@@ -11,6 +11,7 @@ body{
     background-color: var(--black);
     color: var(--white);
     padding:25px;
+    width: 375px;
 }
 
 .header{
@@ -23,9 +24,67 @@ body{
 }
 
 .title{
-    
+    color: var(--main-color);
 }
 
 .countown{
     color:transparent;
 }
+
+.all_cards{
+    height:200px;
+    overflow: scroll;
+}
+
+.all_cards::-webkit-scrollbar{display:none}
+
+.all_cards .card{
+    background: #222;
+    padding:15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.all_cards .card:last-child{
+    margin-bottom: 0;
+}
+
+.add_card{
+    display: flex;
+    margin-top: 25px;
+}
+
+.add_card input{
+    padding:15px;
+    border:solid 2px #222;
+    background: var(--black);
+    width:100%;
+    margin-right: 15px;
+    color: var(--white);
+    transition: ease-in-out 0.3s;
+}
+
+.add_card input:focus{
+    border-color: var(--main-color);
+}
+
+button{
+    background-color: #222;
+    border:solid 2px var(--main-color);
+    color: var(--white);
+    outline: 0;
+    padding: 10px 12.5px;
+    transition: ease-in-out 0.3s;
+}
+
+.button_add{
+    background:var(--black);
+}
+
+button:hover{
+    background-color: var(--main-color);
+    border:solid 2px var(--main-color);
+}
+

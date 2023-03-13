@@ -7,21 +7,11 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     document.body.style.color = "#333"
 }
 
-var jsonData 
-
 function getData(callback) {
     chrome.storage.sync.get(function(data) {
         var dataArray = Object.values(data)
-        var jsonData = JSON.stringify(dataArray)
-        console.log(jsonData)
-        callback(jsonData)
-    })
-}
-
-function getdata(key) {
-    chrome.storage.sync.get(key, function(result) {
-        console.log('Valeur récupérée pour ma Cle : ' + result.key)
-        return result.key
+        console.log(dataArray)
+        callback(dataArray)
     })
 }
 
@@ -31,26 +21,79 @@ function setdata(key,data) {
     })
 }
 
+function verifierSuppression(clé) {
+    chrome.storage.sync.get(clé, function(resultat) {
+        if (resultat[clé] === undefined) {
+            console.log('La clé a été supprimée avec succès.');
+        } else {
+            console.log('La clé n\'a pas été supprimée.');
+        }
+    });
+}
+
 function deletdata(key){
     chrome.storage.sync.remove(key, function() {
         console.log('La clé a été supprimée.')
+        verifierSuppression(key)
     })
 }
 
+document.getElementById("button_add_key").onclick = function(){
+    getData(function(myData){
+        setdata(String(myData.length),document.getElementById("input_add_key").value)
+    })
+    
+}
 
-//setdata(1,54313213)
-//setdata(2,9313213)
-//setdata(3,459313213)
-
-
-
+setdata('0','046313213')
+setdata('1','14313213')
+setdata('2','24313213')
+setdata('3','34313213')
 
 getData(function(myData) {
-    const list_totp = document.getElementById('list_totp')
-    list_totp.textContent = myData
-    
-    //myData
+    console.log(myData)
 
+    const all_cards = document.getElementById("all_cards")
+
+    for(i = 0; i < myData.length; i++){
+        const card = document.createElement("div");
+        card.id = "card"+i;
+        card.classList.add("card");
+
+        const name = document.createElement("p");
+        name.id = "name"+i;
+        name.classList.add("name");
+        name.textContent = "test"
+        card.appendChild(name);
+        
+
+        const code = document.createElement("p");
+        code.id = "code"+i;
+        code.classList.add("code");
+        code.textContent = "code"
+        card.appendChild(code);
+
+        const key = document.createElement("p");
+        key.id = "key"+i;
+        key.classList.add("key");
+        key.textContent = myData[i];
+        card.appendChild(key);
+
+        const del = document.createElement("button");
+        del.id = "del"+i;
+        del.classList.add("del");
+        del.textContent = "Supprimer";
+        del.onclick = function () {
+            console.log(String(i))
+            deletdata(String(i-1))
+        };
+        card.appendChild(del);
+        
+
+        // Ajout de l'enfant à la div parent
+        all_cards.appendChild(card);
+    }
+    //myData
 })
 
 
@@ -72,7 +115,7 @@ document.body.onload = function() {
         }
     })
 }
-
+/*
 document.getElementById("set").onclick = function() {
     var d = document.getElementById("text").value
     chrome.storage.sync.set({ "data" : d }, function() {
@@ -83,6 +126,7 @@ document.getElementById("set").onclick = function() {
     location.reload()
     //window.close()
 }
+*/
 
 // actialise la page toute les 30 seconde
 // debut
