@@ -35,6 +35,7 @@ function deletdata(key){
     chrome.storage.sync.remove(key, function() {
         console.log('La clé a été supprimée.')
         verifierSuppression(key)
+        
     })
 }
 
@@ -42,13 +43,11 @@ document.getElementById("button_add_key").onclick = function(){
     getData(function(myData){
         setdata(String(myData.length),document.getElementById("input_add_key").value)
     })
+    location.reload()
     
 }
 
-setdata('0','046313213')
-setdata('1','14313213')
-setdata('2','24313213')
-setdata('3','34313213')
+
 
 getData(function(myData) {
     console.log(myData)
@@ -83,11 +82,24 @@ getData(function(myData) {
         del.id = "del"+i;
         del.classList.add("del");
         del.textContent = "Supprimer";
-        del.onclick = function () {
-            console.log(String(i))
-            deletdata(String(i-1))
-        };
+        del.setAttribute("data-valeur", i);
+
+        //todo : error
+        // const boutons = document.querySelectorAll(".del");
+        // // Ajouter un écouteur d'événement "click" à chaque bouton
+        // boutons.forEach(bouton => {
+        //     bouton.addEventListener("click", (event) => {
+        //         const valeur = event.target.getAttribute("data-valeur");
+        //         deletdata(String(valeur))
+        //         console.log(String(valeur))
+        //     });
+        // });
+
         card.appendChild(del);
+
+
+
+
         
 
         // Ajout de l'enfant à la div parent
@@ -96,7 +108,29 @@ getData(function(myData) {
     //myData
 })
 
+// const boutons = document.querySelectorAll(".del");
+// // Ajouter un écouteur d'événement "click" à chaque bouton
+// boutons.forEach(bouton => {
+//     bouton.addEventListener("click", (event) => {
+//         const valeur = event.target.getAttribute("data-valeur");
+//         deletdata(String(valeur))
+//         console.log(String(valeur))
+//     });
+// });
 
+for(i = 0; i < boutons.length; i++){
+    console.log("coucou")
+}
+
+// deletdata("0")
+// deletdata("1")
+// deletdata("2")
+// deletdata("3")
+// deletdata("4")
+// deletdata("5")
+// deletdata("6")
+// deletdata("7")
+// deletdata("8")
 
 /*
 for(let i = 0 i < Donnees.length i++) {
@@ -107,14 +141,14 @@ for(let i = 0 i < Donnees.length i++) {
 */
 
 
-document.body.onload = function() {
-    chrome.storage.sync.get("data", function(items) {
-        if (!chrome.runtime.error) {
-        console.log(items)
-        document.getElementById("data").innerText = items.data
-        }
-    })
-}
+// document.body.onload = function() {
+//     chrome.storage.sync.get("data", function(items) {
+//         if (!chrome.runtime.error) {
+//         console.log(items)
+//         document.getElementById("data").innerText = items.data
+//         }
+//     })
+// }
 /*
 document.getElementById("set").onclick = function() {
     var d = document.getElementById("text").value
