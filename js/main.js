@@ -108,19 +108,20 @@ getData(function(myData) {
     //myData
 })
 
-// const boutons = document.querySelectorAll(".del");
-// // Ajouter un écouteur d'événement "click" à chaque bouton
-// boutons.forEach(bouton => {
-//     bouton.addEventListener("click", (event) => {
-//         const valeur = event.target.getAttribute("data-valeur");
-//         deletdata(String(valeur))
-//         console.log(String(valeur))
-//     });
-// });
 
-for(i = 0; i < boutons.length; i++){
-    console.log("coucou")
-}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const boutons = document.querySelectorAll(".del");
+    // Ajouter un écouteur d'événement "click" à chaque bouton
+    boutons.forEach(bouton => {
+        bouton.addEventListener("click", (event) => {
+            const valeur = event.target.getAttribute("data-valeur");
+            deletdata(String(valeur))
+            console.log(String(valeur))
+        });
+    });
+});
+
 
 // deletdata("0")
 // deletdata("1")
