@@ -273,11 +273,14 @@ getData(function(myData) {
 
         card.appendChild(del);
 
+
         // Ajout de l'enfant à la div parent
         all_cards.appendChild(card);
 
         const copydiv = document.getElementById(card.id);
         copydiv.onclick = function() {
+            console.log(card.id)
+            
             const textToCopy = document.getElementById(code.id).innerText;
             navigator.clipboard.writeText(textToCopy)
             console.log("Copy:",code.id)
