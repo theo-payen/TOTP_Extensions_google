@@ -239,9 +239,6 @@ getData(function(myData) {
         name.classList.add("name");
         name.textContent = myData[i].name
         card.appendChild(name);
-        
-
-
 
         const code = document.createElement("p");
 
@@ -278,6 +275,13 @@ getData(function(myData) {
 
         // Ajout de l'enfant à la div parent
         all_cards.appendChild(card);
+
+        const copydiv = document.getElementById(card.id);
+        copydiv.onclick = function() {
+            const textToCopy = document.getElementById(code.id).innerText;
+            navigator.clipboard.writeText(textToCopy)
+            console.log("Copy:",code.id)
+        }
     }
 
 })
@@ -297,47 +301,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
-// deletdata("0")
-// deletdata("1")
-// deletdata("2")
-// deletdata("3")
-// deletdata("4")
-// deletdata("5")
-// deletdata("6")
-// deletdata("7")
-// deletdata("8")
-// deletdata("data")
-
-/*
-for(let i = 0 i < Donnees.length i++) {
-    const p = document.createElement('p')
-    p.textContent = Donnees[i]
-    list_totp.appendChild(p)
-}
-*/
-
-
-// document.body.onload = function() {
-//     chrome.storage.sync.get("data", function(items) {
-//         if (!chrome.runtime.error) {
-//         console.log(items)
-//         document.getElementById("data").innerText = items.data
-//         }
-//     })
-// }
-/*
-document.getElementById("set").onclick = function() {
-    var d = document.getElementById("text").value
-    chrome.storage.sync.set({ "data" : d }, function() {
-        if (chrome.runtime.error) {
-            console.log("Runtime error.")
-        }
-    })
-    location.reload()
-    //window.close()
-}
-*/
 
 // actialise la page toute les 30 seconde
 // debut
