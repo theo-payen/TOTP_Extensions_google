@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Mon extension",
+    "name": "TOTP",
     "version": "1.0",
-    "description": "Description de mon extension",
+    "description": "Extension gestion des clefs TOTP",
     "icons": {
         "128": "img/icons.png"
     },
