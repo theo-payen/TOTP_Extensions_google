@@ -273,7 +273,12 @@ getData(function(myData) {
 
         card.appendChild(del);
 
+        const popup = document.createElement("span");
+        popup.id = "popup"+i;
+        popup.classList.add("popup");
+        popup.textContent = "Copy";
 
+        card.appendChild(popup);
         // Ajout de l'enfant à la div parent
         all_cards.appendChild(card);
 
