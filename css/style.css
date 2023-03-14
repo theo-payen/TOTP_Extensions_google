@@ -4,7 +4,7 @@
     --main-color: #9147ff;
     --black: #333;
     --white: #fff;
-  }
+}
 
 body{
     font-family: 'Roboto', sans-serif;
@@ -87,4 +87,3 @@ button:hover{
     background-color: var(--main-color);
     border:solid 2px var(--main-color);
 }
-
